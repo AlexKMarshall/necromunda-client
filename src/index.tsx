@@ -10,6 +10,7 @@ ReactDOM.render(
       domain="alexkmarshall.eu.auth0.com"
       clientId="CFLjgSzY7b8qckm2Hditn3A4gZKjD7i3"
       redirectUri={window.location.origin}
+      audience="https://necromunda/api"
     >
       <App />
     </Auth0Provider>
