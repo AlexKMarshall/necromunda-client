@@ -11,7 +11,7 @@ export async function client(endpoint: string, config?: RequestInit) {
   try {
     const data = await response.json();
     if (response.ok) {
-      return data;
+      return data as unknown;
     } else {
       return Promise.reject(data);
     }
