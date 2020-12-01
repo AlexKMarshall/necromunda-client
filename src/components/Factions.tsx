@@ -1,29 +1,23 @@
-import { useEffect, useState } from "react";
 import { useAuthClient } from "../hooks/client";
+import { useQuery } from "react-query";
 
 export default function Factions() {
   const client = useAuthClient();
-  const [factions, setFactions] = useState<any[]>([]);
+  const { isLoading, isError, error, data: factions } = useQuery(
+    "factions",
+    () => client("factions")
+  );
 
-  useEffect(() => {
-    const getFactions = async () => {
-      try {
-        const data = await client("factions");
-        setFactions(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getFactions();
-  }, [client]);
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>{JSON.stringify(error)}</div>;
 
   return (
     <>
       <div>Faction List</div>
       <ul>
-        {factions.map((f) => (
-          <li key={f._id}>{f.name}</li>
-        ))}
+        {Array.isArray(factions)
+          ? factions.map((f: any) => <li key={f._id}>{f.name}</li>)
+          : null}
       </ul>
     </>
   );
