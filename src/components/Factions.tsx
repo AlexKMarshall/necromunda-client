@@ -15,6 +15,7 @@ export default function Factions() {
     setIsSaving(true);
     await postFaction({ name });
     setIsSaving(false);
+    target.name.value = "";
   };
 
   if (isLoading) return <div>Loading...</div>;

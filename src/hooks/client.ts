@@ -20,11 +20,22 @@ export async function client(endpoint: string, config?: RequestInit) {
   }
 }
 
-export function useAuthClient() {
+export function useAuthClient<T>() {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   return useCallback(
-    async (endpoint: string, config: RequestInit = {}) => {
+    async (endpoint: string, body?: T, config: RequestInit = {}) => {
+      if (body) {
+        config = {
+          body: JSON.stringify(body),
+          method: "POST",
+          ...config,
+          headers: {
+            "content-type": "application/json",
+            ...config.headers,
+          },
+        };
+      }
       const accessToken = isAuthenticated
         ? await getAccessTokenSilently()
         : undefined;

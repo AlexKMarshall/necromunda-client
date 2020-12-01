@@ -27,13 +27,7 @@ export function useCreateFaction() {
 
   async function createFaction(faction: FactionNoIdType) {
     try {
-      const result = await client("factions", {
-        method: "POST",
-        body: JSON.stringify(faction),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      const result = await client("factions", faction);
       return factionSchema.parse(result);
     } catch (error) {
       return Promise.reject(error);
