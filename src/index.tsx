@@ -2,18 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Auth0Provider } from "@auth0/auth0-react";
+import AppProviders from "./context/AppProviders";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="alexkmarshall.eu.auth0.com"
-      clientId="CFLjgSzY7b8qckm2Hditn3A4gZKjD7i3"
-      redirectUri={window.location.origin}
-      audience="https://necromunda/api"
-    >
+    <AppProviders>
       <App />
-    </Auth0Provider>
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById("root")
 );
