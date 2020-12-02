@@ -1,5 +1,6 @@
 import { Auth0Provider } from "@auth0/auth0-react";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
 
 const AuthProvider: React.FC = ({ children }) => (
   <Auth0Provider
@@ -19,7 +20,9 @@ const QueryCacheProvider: React.FC = ({ children }) => (
 
 const AppProviders: React.FC = ({ children }) => (
   <QueryCacheProvider>
-    <AuthProvider>{children}</AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>{children}</BrowserRouter>
+    </AuthProvider>
   </QueryCacheProvider>
 );
 
