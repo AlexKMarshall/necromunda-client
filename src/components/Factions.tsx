@@ -28,7 +28,7 @@ export default function Factions() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="faction-name">Faction Name</label>
         <input type="text" id="faction-name" name="name" />
-        <button disabled={isSaving}>Submit</button>
+        <button disabled={isSaving}>{isSaving ? "Saving..." : "Submit"}</button>
       </form>
       <ul>
         {factions.map((f) => (
