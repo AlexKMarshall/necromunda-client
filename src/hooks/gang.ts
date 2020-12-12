@@ -21,6 +21,25 @@ export function useReadGangs() {
   return { ...queryResult, gangs };
 }
 
+export function useReadGangById(id: string) {
+  const client = useAuthClient();
+
+  async function getGang() {
+    try {
+      const data = await client(`gangs/${id}`);
+      return gangSchema.parse(data);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  const queryResult = useQuery(["gang", id], getGang);
+
+  const gang = queryResult.data;
+
+  return { ...queryResult, gang };
+}
+
 export function useCreateGang() {
   const cache = useQueryCache();
   const client = useAuthClient();

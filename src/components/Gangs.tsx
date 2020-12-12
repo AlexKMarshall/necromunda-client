@@ -1,9 +1,11 @@
-import { useCreateGang, useReadGangs } from "../hooks/gang";
+import { useCreateGang, useReadGangs, useReadGangById } from "../hooks/gang";
 import { useReadFactions } from "../hooks/faction";
 import { useState } from "react";
+import { Link, useParams, useRouteMatch } from "react-router-dom";
 
 export function Gangs() {
   const { isLoading, isError, error, gangs } = useReadGangs();
+  const { url } = useRouteMatch();
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>{JSON.stringify(error)}</div>;
@@ -16,7 +18,9 @@ export function Gangs() {
       <ul>
         {gangs.map((g) => (
           <li key={g._id}>
-            {g.name} - {g.faction.name}
+            <Link to={`${url}/${g._id}`}>
+              {g.name} - {g.faction.name}
+            </Link>
           </li>
         ))}
       </ul>
@@ -63,5 +67,23 @@ function CreateGang() {
       </select>
       <button disabled={isSaving}>Submit</button>
     </form>
+  );
+}
+
+interface RouteParams {
+  id: string;
+}
+
+export function GangDetail() {
+  const { id } = useParams<RouteParams>();
+  const { gang, isLoading } = useReadGangById(id);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!gang) return null;
+
+  return (
+    <h2>
+      {gang.name} - {gang.faction.name}
+    </h2>
   );
 }

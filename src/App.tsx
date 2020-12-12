@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import Factions from "./components/Factions";
-import { Gangs } from "./components/Gangs";
+import { Gangs, GangDetail } from "./components/Gangs";
 import LoginButton from "./components/Login";
 import LogoutButton from "./components/Logout";
 import { Link, Switch, Route } from "react-router-dom";
@@ -32,8 +32,11 @@ function AuthenticatedApp() {
         <Route path="/factions">
           <Factions />
         </Route>
-        <Route path="/gangs">
+        <Route path="/gangs" exact={true}>
           <Gangs />
+        </Route>
+        <Route path="/gangs/:id">
+          <GangDetail />
         </Route>
       </Switch>
     </>
