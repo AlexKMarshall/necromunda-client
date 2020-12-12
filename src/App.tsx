@@ -2,9 +2,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import Factions from "./components/Factions";
 import { Gangs, GangDetail } from "./components/Gangs";
+import FighterPrototypes from "./components/FighterPrototypes";
 import LoginButton from "./components/Login";
 import LogoutButton from "./components/Logout";
 import { Link, Switch, Route } from "react-router-dom";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -24,6 +26,9 @@ function AuthenticatedApp() {
             <Link to="/factions">Factions</Link>
           </li>
           <li>
+            <Link to="/fighter-prototypes">Fighter Prototypes</Link>
+          </li>
+          <li>
             <Link to="/gangs">Gangs</Link>
           </li>
         </ul>
@@ -32,6 +37,9 @@ function AuthenticatedApp() {
         <Route path="/factions">
           <Factions />
         </Route>
+        <Route path="/fighter-prototypes">
+          <FighterPrototypes />
+        </Route>
         <Route path="/gangs" exact={true}>
           <Gangs />
         </Route>
@@ -39,6 +47,7 @@ function AuthenticatedApp() {
           <GangDetail />
         </Route>
       </Switch>
+      <ReactQueryDevtools initialIsOpen />
     </>
   );
 }

@@ -6,5 +6,12 @@ export const fighterSchema = z.object({
   name: z.string(),
   proto: fighterPrototypeSchema.shape.name,
   protoId: fighterPrototypeSchema.shape._id,
-  class: fighterPrototypeSchema.shape.class,
+  fighterClass: fighterPrototypeSchema.shape.fighterClass,
 });
+
+export const fighterInputSchema = fighterSchema.pick({
+  name: true,
+  protoId: true,
+});
+
+export type FighterInput = z.infer<typeof fighterInputSchema>;

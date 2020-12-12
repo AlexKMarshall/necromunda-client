@@ -33,7 +33,7 @@ export function useReadGangById(id: string) {
     }
   }
 
-  const queryResult = useQuery(["gang", id], getGang);
+  const queryResult = useQuery(["gangs", id], getGang);
 
   const gang = queryResult.data;
 
